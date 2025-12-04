@@ -2,27 +2,41 @@ import 'package:flutter/material.dart';
 
 class AppButton extends StatelessWidget {
   const AppButton(
-    this.label, {
-    super.key,
-    required this.onTap,
+    {
+    required this.label,
+    this.onTap,
+    this.onPressed,
+    this.backgroundColor,
+    this.width,
     this.icon,
+    super.key,
   });
 
   final IconData? icon;
   final String label;
-  final void Function() onTap;
+  final VoidCallback? onTap;
+  final VoidCallback? onPressed;
+  final Color? backgroundColor;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton.icon(
-        icon: Icon(icon),
-        label: Text(label),
-        onPressed: onTap,
-        style: OutlinedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(
-            vertical: 10,
-            horizontal: 40,
+    return SizedBox(
+      width: width ?? double.infinity,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: backgroundColor ?? Theme.of(context).primaryColor,
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
           ),
-        ));
+        ),
+        onPressed: onPressed,
+        child: Text(
+          label,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
   }
 }
